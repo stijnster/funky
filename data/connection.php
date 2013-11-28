@@ -60,6 +60,13 @@ class Connection{
     return Connection::$instance;
   }
   
+  /**
+   * getConnection
+   *
+   * This is a method to get access to the connection.
+   *
+   * @return Funky\Data\Connection instance
+   */
   public static function getConnection(){
     return Connection::$connection;
   }
