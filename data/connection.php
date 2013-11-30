@@ -12,7 +12,7 @@ class Connection{
   private static $socket = null;
 
   private function __construct(){
-    Connection::$connection = mysqli_connect(Connection::$host, Connection::$username, Connection::$password, Connection::$database, Connection::$port, Connection::$socket); 
+    Connection::$connection = mysqli_connect(Connection::$host, Connection::$username, Connection::$password, Connection::$database, Connection::$port, Connection::$socket);
   }
   
   function __destruct(){
