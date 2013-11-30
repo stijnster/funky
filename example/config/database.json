@@ -1,0 +1,8 @@
+{
+  "development":{
+    "host": "localhost",
+    "username": "root",
+    "database": "funky",
+    "socket": "/tmp/mysql.sock"
+  }
+}

@@ -5,10 +5,6 @@ namespace Funky;
  * Funky/Autoloader
  *
  * The Autoloader class automaticaly loads classes when they are needed. It will look for a Funky\ prefix to start loading files from the framework.
- * This fill will also define the constant FUNKY_FRAMEWORK_BASE_PATH, which is the base folder of the framework. And it will also register the load function
- * by itself.
- * 
- * Including this file into your project should be enough to start using the framework.
  */
 class Autoloader{
   
@@ -49,7 +45,3 @@ class Autoloader{
     }
   }
 }
-
-define('FUNKY_FRAMEWORK_BASE_PATH', realpath(dirname(__FILE__)));
-
-Autoloader::register();
