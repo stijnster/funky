@@ -1,6 +1,11 @@
 <?php
 namespace Funky\Data;
 
+/**
+ * Funky\Data\Connection
+ *
+ * The Connection class sets up (and tears down) a connection to a mysql database, using the mysqli library.
+ */
 class Connection{
   private static $instance;
   private static $connection;
@@ -11,10 +16,20 @@ class Connection{
   private static $port = null;
   private static $socket = null;
 
+  /**
+   * __construct
+   *
+   * The database connection is opened on the very first time the instance is being created.
+   */
   private function __construct(){
     Connection::$connection = mysqli_connect(Connection::$host, Connection::$username, Connection::$password, Connection::$database, Connection::$port, Connection::$socket);
   }
   
+  /**
+   * __destruct
+   *
+   * The database connection is closed when the class gets destroyed.
+   */
   function __destruct(){
     Connection::$connection->close();
   }
