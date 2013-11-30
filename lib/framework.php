@@ -7,6 +7,10 @@ namespace Funky;
  * This class will load the basic components and settings for the Funky Framework.
  */
 class Framework{
+  const MAJOR = 0;
+  const MINOR = 0;
+  const PATCH = 0;
+  const BUILD = 1;
   
   /**
    * load
@@ -18,6 +22,10 @@ class Framework{
     
     Framework::registerAutoloader();
     Framework::setupDatabase();
+  }
+  
+  public static function version(){
+    return implode('.', array(Framework::MAJOR, Framework::MINOR, Framework::PATCH, Framework::BUILD));
   }
 
   /**
