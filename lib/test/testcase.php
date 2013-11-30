@@ -22,6 +22,9 @@ class TestCase{
   
   private function tearDown(){
     echo "\n\nEnding test with {$this->errorCount} error(s) for {$this->testCount} test(s).\n";
+    foreach($this->errors as $error){
+      echo "\n{$error}\n\n";
+    }
   }
   
   /**
@@ -57,49 +60,76 @@ class TestCase{
   }
   
   public function assert($original, $test, $message = null){
-    $this->testCount++;
+    if($message == null){
+      $message = "Expected {$test} to be the same as {$original}.";
+    }
+    
     if($original != $test){
-      echo "F";
-      $this->errorCount++;
+      $this->failed($message);
     }
     else{
-      echo ".";
+      $this->success();
     }
   }
 
   public function not($original, $test, $message = null){
-    $this->testCount++;
+    if($message == null){
+      $message = "Expected {$test} not to be the same as {$original}.";
+    }
+
     if($original == $test){
-      echo "F";
-      $this->errorCount++;
+      $this->failed($message);
     }
     else{
-      echo ".";
+      $this->success();
     }
   }
 
   public function equal($original, $test, $message = null){
-    $this->testCount++;
+    if($message == null){
+      $message = "Expected {$test} to be the exactly the same as {$original}.";
+    }
+    
     if($original !== $test){
-      echo "F";
-      $this->errorCount++;
-      var_dump(debug_backtrace());
+      $this->failed($message);
     }
     else{
-      echo ".";
+      $this->success();
     }
   }
 
   public function notEqual($original, $test, $message = null){
-    $this->testCount++;
+    if($message == null){
+      $message = "Expected {$test} to be not exactly the same as {$original}.";
+    }
+
     if($original === $test){
-      echo "F";
-      $this->errorCount++;
-      var_dump(debug_backtrace());
+      $this->failed($message);
     }
     else{
-      echo ".";
+      $this->success();
     }
+  }
+  
+  private function failed($message){
+    $this->testCount++;
+    $this->errorCount++;
+    
+    $backtrace = debug_backtrace();
+    
+    if(count($backtrace) > 0){
+      $caller = $backtrace[1];
+      
+      $this->errors[] = "{$message}\n\tIn file {$caller['file']} on line {$caller['line']}";
+    }
+    
+    echo "F";
+  }
+  
+  private function success(){
+    $this->testCount++;
+    
+    echo ".";
   }
   
   /**
