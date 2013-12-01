@@ -13,4 +13,4 @@ define('FUNKY_APPLICATION_BASE_PATH', realpath(dirname(__FILE__).DIRECTORY_SEPAR
 require_once(FUNKY_APPLICATION_BASE_PATH.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'funky'.DIRECTORY_SEPARATOR.'framework.php');
 Funky\Framework::load();
 
-var_dump(Funky\Data\Connection::getInstance());
+Funky\Data\Connection::getInstance();
