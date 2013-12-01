@@ -2,8 +2,10 @@
 namespace Funky\Test;
 
 /**
- * Funky\Test\Case
+ * Funky\Test\TestCase
  *
+ * TestCase forms the basic class to create tests. It provides methods to test specific values
+ * and callback functions that run before or after any or all test.
  */
 class TestCase{
   private $errorCount;
@@ -17,12 +19,24 @@ class TestCase{
     $this->errors = array();
   }
   
+  /**
+   * setup
+   *
+   * setup is a private function that gets called when starting the test case. It basicaly prints out that
+   * the test is starting.
+   */
   private function setup(){
     if(!$this->inSuite){
       echo "Starting test\n";
     }
   }
   
+  /**
+   * tearDown
+   *
+   * tearDown is a private function that gets called when the test case is done. It prints out some statistics
+   * about the tests.
+   */
   private function tearDown(){
     if(!$this->inSuite){
       echo "\n\nEnding test with {$this->errorCount} error(s) for {$this->testCount} test(s).\n";
@@ -32,10 +46,20 @@ class TestCase{
     }
   }
 
+  /**
+   * getErrorCount
+   *
+   * Gets the number of errors that occured during the test.
+   */
   public function getErrorCount(){
     return $this->errorCount;
   }
 
+  /**
+   * getTestCount
+   *
+   * Gets the number of tests that where executed during the test.
+   */
   public function getTestCount(){
     return $this->testCount;
   }
@@ -72,6 +96,15 @@ class TestCase{
   public function afterAny(){
   }
   
+  /**
+   * assert
+   * 
+   * This test compares two values. If the values are different, the test fails.
+   *
+   * @param $original mixed The expected value.
+   * @param $test mixed The value to test.
+   * @param $message string optional A specific message can be provided to print when the test fails.
+   */
   public function assert($original, $test, $message = null){
     if($message == null){
       $message = "Expected {$test} to be the same as {$original}.";
@@ -85,6 +118,15 @@ class TestCase{
     }
   }
 
+  /**
+   * not
+   * 
+   * This test compares two values. If the values are the same, the test fails.
+   *
+   * @param $original mixed The expected value.
+   * @param $test mixed The value to test.
+   * @param $message string optional A specific message can be provided to print when the test fails.
+   */
   public function not($original, $test, $message = null){
     if($message == null){
       $message = "Expected {$test} not to be the same as {$original}.";
@@ -98,6 +140,15 @@ class TestCase{
     }
   }
 
+  /**
+   * equal
+   * 
+   * This test compares two values to match exactly. If the values are different, the test fails.
+   *
+   * @param $original mixed The expected value.
+   * @param $test mixed The value to test.
+   * @param $message string optional A specific message can be provided to print when the test fails.
+   */
   public function equal($original, $test, $message = null){
     if($message == null){
       $message = "Expected {$test} to be the exactly the same as {$original}.";
@@ -111,6 +162,15 @@ class TestCase{
     }
   }
 
+  /**
+   * notEqual
+   * 
+   * This test compares two values to not match exactly. If the values are the same, the test fails.
+   *
+   * @param $original mixed The expected value.
+   * @param $test mixed The value to test.
+   * @param $message string optional A specific message can be provided to print when the test fails.
+   */
   public function notEqual($original, $test, $message = null){
     if($message == null){
       $message = "Expected {$test} to be not exactly the same as {$original}.";
@@ -124,6 +184,14 @@ class TestCase{
     }
   }
   
+  /**
+   * failed
+   * 
+   * Failed is a private function that gets called when a test fails. It gathers information on
+   * where the test was called from, and increases the test and error count.
+   *
+   * @param $message string The message that gets printed.
+   */
   private function failed($message){
     $this->testCount++;
     $this->errorCount++;
@@ -139,6 +207,12 @@ class TestCase{
     echo "F";
   }
   
+  /**
+   * success
+   * 
+   * Success is a private function that gets called when a test is succesfull. It will increment the
+   * testCount.
+   */
   private function success(){
     $this->testCount++;
     
