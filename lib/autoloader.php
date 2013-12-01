@@ -1,6 +1,8 @@
 <?php
 namespace Funky;
 
+require_once(FUNKY_FRAMEWORK_BASE_PATH.DIRECTORY_SEPARATOR.'Helper'.DIRECTORY_SEPARATOR.'String.php');
+
 /**
  * Funky/Autoloader
  *
@@ -28,12 +30,7 @@ class Autoloader{
    */
   public static function load($class){
     if(preg_match("/^Funky\\\(.*)$/", $class, $matches)){
-      $paths = explode("\\", $matches[1]);
-      foreach($paths as $key => $path){
-        $paths[$key] = strtolower($path);
-      }
-
-      $filename = FUNKY_FRAMEWORK_BASE_PATH.DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $paths).'.php';
+      $filename = FUNKY_FRAMEWORK_BASE_PATH.DIRECTORY_SEPARATOR.Helper\String::classToFile($matches[1]).'.php';
 
       if(file_exists($filename)){
         require_once($filename);
