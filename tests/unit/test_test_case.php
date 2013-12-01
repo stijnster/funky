@@ -10,6 +10,3 @@ class TestTestCase extends Funky\Test\TestCase{
     $this->notEqual('4', 4);
   }
 }
-
-$testTestCase = new TestTestCase();
-$testTestCase->run();

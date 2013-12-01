@@ -1,0 +1,6 @@
+#!/usr/bin/php
+<?php
+require_once(realpath(dirname(__FILE__)).'/../tests/config/boot.php');
+
+$testSuite = new Funky\Test\TestSuite();
+$testSuite->run(FUNKY_APPLICATION_BASE_PATH);

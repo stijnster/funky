@@ -23,6 +23,3 @@ class TestHelperString extends Funky\Test\TestCase{
 		$this->assert('Funky\Chicken\HelperDanceMethod', Funky\Helper\String::fileToClass('funky/chicken/helper_dance_method'));
 	}
 }
-
-$testHelperString = new TestHelperString();
-$testHelperString->run();

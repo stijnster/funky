@@ -9,6 +9,7 @@ class TestCase{
   private $errorCount;
   private $testCount;
   private $errors;
+  private $inSuite;
   
   function __construct(){
     $this->errorCount = 0;
@@ -17,16 +18,28 @@ class TestCase{
   }
   
   private function setup(){
-    echo "Starting test\n";
+    if(!$this->inSuite){
+      echo "Starting test\n";
+    }
   }
   
   private function tearDown(){
-    echo "\n\nEnding test with {$this->errorCount} error(s) for {$this->testCount} test(s).\n";
+    if(!$this->inSuite){
+      echo "\n\nEnding test with {$this->errorCount} error(s) for {$this->testCount} test(s).\n";
+    }
     foreach($this->errors as $error){
       echo "\n{$error}\n\n";
     }
   }
-  
+
+  public function getErrorCount(){
+    return $this->errorCount;
+  }
+
+  public function getTestCount(){
+    return $this->testCount;
+  }
+
   /**
    * beforeAll
    *
@@ -136,8 +149,11 @@ class TestCase{
    * run
    *
    * Run the testcase
+   *
+   * @param $inSuite bool Indicates wether the test is executed in a suite.
    */
-  public function run(){
+  public function run($inSuite = false){
+    $this->inSuite = $inSuite;
     $this->setup();
     $this->beforeAll();
     
