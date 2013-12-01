@@ -22,6 +22,7 @@ class Connection{
    * The database connection is opened on the very first time the instance is being created.
    */
   private function __construct(){
+    \Funky\Logger::debug('Opening database connection');
     Connection::$connection = mysqli_connect(Connection::$host, Connection::$username, Connection::$password, Connection::$database, Connection::$port, Connection::$socket);
   }
   
@@ -32,6 +33,7 @@ class Connection{
    */
   function __destruct(){
     Connection::$connection->close();
+    \Funky\Logger::debug('Database connection closed');
   }
   
   /**

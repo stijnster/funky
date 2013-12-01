@@ -21,6 +21,7 @@ class Framework{
     Framework::checkEnvironmentVariables();
     
     Framework::registerAutoloader();
+    Framework::setupLogging();
     Framework::setupDatabase();
   }
   
@@ -66,6 +67,14 @@ class Framework{
     require_once(FUNKY_FRAMEWORK_BASE_PATH.DIRECTORY_SEPARATOR.'autoloader.php');
     Autoloader::register();
   }
+
+
+  private static function setupLogging(){
+    if(APPLICATION_ENV != 'production'){
+      Logger::setLogLevel(Logger::DEBUG);
+    }
+  }
+
   
   /**
    * setupDatabase
