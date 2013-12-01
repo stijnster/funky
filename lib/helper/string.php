@@ -20,13 +20,17 @@ class String{
 	 * @return string The converted class name.
 	 */
 	public static function classToFile($class){
-		return preg_replace_callback('/(^[A-Z]{1}|([a-z]{1})([A-Z]{1}))/', function($matches){
-			if(count($matches) == 4){
-				$result = $matches[2].'_'.strtolower($matches[3]);
-			}
-			else{
-				$result = strtolower($matches[0]);
-			}
+		return preg_replace_callback('/(^[A-Z]{1}|([a-z]{1})([A-Z]{1})|(\\\)([A-Z]{1}))/', function($matches){
+			switch(count($matches)){
+				case 6:
+					$result = '/'.strtolower($matches[5]);
+					break;
+				case 4:
+					$result = $matches[2].'_'.strtolower($matches[3]);	
+					break;
+				default:
+					$result = strtolower($matches[0]);
+			};
 
 			return $result;
 		}, $class);
@@ -44,12 +48,16 @@ class String{
 	 * @return string The converted file name.
 	 */
 	public static function fileToClass($file){
-		return preg_replace_callback('/(^[a-z]{1}|(_)([a-z]{1}))/', function($matches){
-			if(count($matches) == 4){
-				$result = strtoupper($matches[3]);
-			}
-			else{
-				$result = strtoupper($matches[0]);
+		return preg_replace_callback('/(^[a-z]{1}|(_)([a-z]{1})|(\\/)([a-z]{1}))/', function($matches){
+			switch(count($matches)){
+				case 6:
+					$result = '\\'.strtoupper($matches[5]);
+					break;
+				case 4:
+					$result = strtoupper($matches[3]);
+					break;
+				default:
+					$result = strtoupper($matches[0]);
 			}
 			
 			return $result;
